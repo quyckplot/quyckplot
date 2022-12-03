@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 import matplotlib as mpl
-from utils import dict2formatted_string
+from .utils import dict2formatted_string
 
 # this function takes a plt method (e.g. plt.plot) and returns a function that takes a dataframe and plots it with the given method
 def plotter_factory(method):

@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import getFileNamesFromRegex, formatted_string2dict
+from .utils import getFileNamesFromRegex, formatted_string2dict
 from scipy import stats
 import numpy as np
 
@@ -37,7 +37,7 @@ class DataSet:
         self.map(fit)
 
 
-    def loadFromFileNames(self, filenames, name_format, columns, dir="", **kwargs):  
+    def loadFromFileNames(self, filenames, name_format, dir="", **kwargs):  
         """
         Loads data from the files at the given paths.
         """
@@ -49,12 +49,11 @@ class DataSet:
             else:
                 path = name
 
-            if name.endswith(".csv"):
-                df = pd.read_csv(path, names=columns, **kwargs)
-            elif name.endswith(".txt"):
-                df = pd.read_csv(path, sep="\t", **kwargs)
+            # raise an error if the extension is not csv, txt or xls
+            if not path.endswith(".csv") and not path.endswith(".txt") and not path.endswith(".xls"):
+                raise Exception(f"File {path} has an invalid extension.")
             else:
-                raise Exception("File format not supported")
+                df = pd.read_csv(path, **kwargs)
             
             params = formatted_string2dict(name, name_format)
             self.dataframes.append({"params": params, "data": df})
