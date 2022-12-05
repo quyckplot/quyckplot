@@ -31,10 +31,7 @@ def formatted_string2dict(s, format):
     # get the values of the parameters
     values = match.groups() # ("10", "1.5")
     # create the dictionary
-    d = {}
-    for name, value in zip(names, values):
-        d[name] = value
-    return d
+    return {name: value for name, value in zip(names, values)}
 
 def dict2formatted_string(dict, format):
     """

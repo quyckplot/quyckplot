@@ -55,11 +55,11 @@ class DataSet:
 
         self.map(fit)
 
-    def plot(self, *args, **kwargs):
-        Plotter.plot(self, *args, **kwargs)
+    def plot(self, x="x", y="y", *args, **kwargs):
+        Plotter.plot(self, x, y, *args, **kwargs)
 
-    def scatter(self, *args, **kwargs):
-        Plotter.scatter(self, *args, **kwargs)
+    def scatter(self, x="x", y="y", *args, **kwargs):
+        Plotter.scatter(self, x, y, *args, **kwargs)
 
     def loadFromFileNames(self, filenames, name_format, dir="", **kwargs):  
         """
@@ -80,7 +80,7 @@ class DataSet:
                 df = pd.read_csv(path, **kwargs)
             
             params = formatted_string2dict(name, name_format)
-            self.dataframes.append({"params": params, "data": df})
+            self.dataframes.append({"params": {"name": name, **params}, "data": df})
 
     def loadFromRegex(self, regex, name_format, dir="", **kwargs):
         """
