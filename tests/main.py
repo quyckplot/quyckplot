@@ -1,4 +1,6 @@
 from quyckplot import DataSet, Plotter
+import matplotlib as mpl
+from matplotlib import pyplot as plt
 
 Plotter.start_session()
 
@@ -12,11 +14,11 @@ data = DataSet.fromFiles(
 )
 
 # Plot data
-data.scatter(
+data.plot(
     x="x",
     y="y",
-    marker=".",
-    s=1
+    xlabel=r"$\rho$",
+    ylabel="some other label",
 )
 
 Plotter.end_session()

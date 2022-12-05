@@ -55,11 +55,11 @@ class DataSet:
 
         self.map(fit)
 
-    def plot(self, x, y, legend=None, new=True, size=(9, 7), **kwargs):
-        Plotter.plot(self, x, y, legend, new, size, **kwargs)
+    def plot(self, *args, **kwargs):
+        Plotter.plot(self, *args, **kwargs)
 
-    def scatter(self, x, y, legend=None, new=True, size=(9, 7), **kwargs):
-        Plotter.scatter(self, x, y, legend, new, size, **kwargs)
+    def scatter(self, *args, **kwargs):
+        Plotter.scatter(self, *args, **kwargs)
 
     def loadFromFileNames(self, filenames, name_format, dir="", **kwargs):  
         """
