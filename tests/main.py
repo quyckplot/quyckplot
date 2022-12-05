@@ -3,8 +3,7 @@ from quyckplot import DataSet, Plotter
 Plotter.start_session()
 
 # Load data
-data = DataSet()
-data.loadFromFileNames(
+data = DataSet.fromFiles(
     ['abricotine.csv'],
     name_format="abricotine.csv",
     dir="data",
@@ -13,10 +12,11 @@ data.loadFromFileNames(
 )
 
 # Plot data
-Plotter.plot(
-    data,
+data.scatter(
     x="x",
     y="y",
+    marker=".",
+    s=1
 )
 
 Plotter.end_session()

@@ -2,11 +2,30 @@ import pandas as pd
 from .utils import getFileNamesFromRegex, formatted_string2dict
 from scipy import stats
 import numpy as np
+from .Plotter import Plotter
 
 class DataSet:
     def __init__(self, title=""):
         self.title = title
         self.dataframes = []
+
+    @classmethod
+    def fromFiles(cls, filenames, name_format, dir="", **kwargs):
+        """
+        Creates a new DataSet object from the given files.
+        """
+        data = cls()
+        data.loadFromFileNames(filenames, name_format, dir=dir, **kwargs)
+        return data
+
+    @classmethod
+    def fromRegex(cls, regex, name_format, dir="", **kwargs):
+        """
+        Creates a new DataSet object from the files matching the given regex.
+        """
+        data = cls()
+        data.loadFromRegex(regex, name_format, dir=dir, **kwargs)
+        return data
 
     def clearData(self):
         """
@@ -36,6 +55,11 @@ class DataSet:
 
         self.map(fit)
 
+    def plot(self, x, y, legend=None, new=True, size=(9, 7), **kwargs):
+        Plotter.plot(self, x, y, legend, new, size, **kwargs)
+
+    def scatter(self, x, y, legend=None, new=True, size=(9, 7), **kwargs):
+        Plotter.scatter(self, x, y, legend, new, size, **kwargs)
 
     def loadFromFileNames(self, filenames, name_format, dir="", **kwargs):  
         """
