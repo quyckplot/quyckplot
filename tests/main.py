@@ -5,7 +5,6 @@ Plotter.start_session() # should be removed in later versions
 # Load data
 data = DataSet.fromFiles(
     ['abricotine.csv'],
-    name_format="abricotine.csv", # should be optional in later versions
     dir="data",
     skiprows=1,
     names=["x", "y"],
@@ -16,6 +15,9 @@ data.plot(
     xlabel=r"$\rho$",
     ylabel="some other label",
 )
+
+for df in data.dataframes:
+    print(df["params"])
 
 Plotter.end_session() # should be removed in later versions
 

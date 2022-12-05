@@ -10,7 +10,7 @@ class DataSet:
         self.dataframes = []
 
     @classmethod
-    def fromFiles(cls, filenames, name_format, dir="", **kwargs):
+    def fromFiles(cls, filenames, name_format="", dir="", **kwargs):
         """
         Creates a new DataSet object from the given files.
         """
