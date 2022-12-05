@@ -58,11 +58,11 @@ class DataSet:
             params = formatted_string2dict(name, name_format)
             self.dataframes.append({"params": params, "data": df})
 
-    def loadFromRegex(self, regex, name_format, columns, dir="", **kwargs):
+    def loadFromRegex(self, regex, name_format, dir="", **kwargs):
         """
         Loads data from the files at the given paths.
         """
         self.clearData()
         paths = getFileNamesFromRegex(regex, dir)
 
-        self.loadFromFileNames(paths, name_format, columns, dir=dir, **kwargs)
+        self.loadFromFileNames(paths, name_format, dir=dir, **kwargs)

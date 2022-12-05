@@ -2,10 +2,10 @@ import os
 import re
 
 class RegexPatterns:
-    int = '\d+'
-    optional_int = '\d*'
-    float = f'{int}\.?\d*'
-    optional_float = f'{optional_int}\.?\d*'
+    INT = '\d+'
+    OPT_INT = '\d*'
+    FLOAT = f'{INT}\.?\d*'
+    OPT_FLOAT = f'{OPT_INT}\.?\d*'
 
 def getFileNamesFromRegex(regex="*", dir=""):
         pattern = re.compile(regex)

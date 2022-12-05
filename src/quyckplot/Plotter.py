@@ -10,30 +10,16 @@ def plotter_factory(method):
         """
         if new:
             cls.new_plot(x, y, data.title, size)
-        # if there is a single dataframe in data, plot it
-        if len(data.dataframes) == 1:
-            df = data.dataframes[0]["data"]
+        for df in data.dataframes:
             if legend:
                 method(
-                    df[x], 
-                    df[y], 
-                    label=dict2formatted_string(data.dataframes[0]["params"], legend),
+                    df["data"][x], 
+                    df["data"][y], 
+                    label=dict2formatted_string(df["params"], legend), 
                     **kwargs
                 )
             else:
-                method(df[x], df[y], **kwargs)
-        # if there are multiple dataframes in data, plot each of them
-        else:
-            for df in data.dataframes:
-                if legend:
-                    method(
-                        df["data"][x], 
-                        df["data"][y], 
-                        label=dict2formatted_string(df["params"], legend), 
-                        **kwargs
-                    )
-                else:
-                    method(df["data"][x], df["data"][y], **kwargs)
+                method(df["data"][x], df["data"][y], **kwargs)
         if legend:
             plt.legend(loc="best")
     return plotter

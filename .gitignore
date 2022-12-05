@@ -1,2 +1,5 @@
 .python-version
 .venv
+dist/
+src/quyckplot.egg-info
+src/quyckplot/__pycache__

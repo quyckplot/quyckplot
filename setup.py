@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.5'
+VERSION = '0.0.6'
 DESCRIPTION = 'A package that helps the process of loading multiple files and plotting the data inside.'
 LONG_DESCRIPTION = 'A package that helps the process of loading multiple files and plotting the data inside.'
 
