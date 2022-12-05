@@ -61,10 +61,12 @@ class DataSet:
     def scatter(self, x="x", y="y", *args, **kwargs):
         Plotter.scatter(self, x, y, *args, **kwargs)
 
-    def loadFromFileNames(self, filenames, name_format, dir="", **kwargs):  
+    def loadFromFileNames(self, filenames, name_format, columns=None, dir="", **kwargs):  
         """
         Loads data from the files at the given paths.
         """
+        if columns is None:
+            columns = ["x", "y"]
         self.clearData()
         # for each file, read it as csv or txt and append it to the list of dataframes
         for name in filenames:
@@ -77,7 +79,7 @@ class DataSet:
             if not path.endswith(".csv") and not path.endswith(".txt") and not path.endswith(".xls"):
                 raise Exception(f"File {path} has an invalid extension.")
             else:
-                df = pd.read_csv(path, **kwargs)
+                df = pd.read_csv(path, names=columns, **kwargs)
             
             params = formatted_string2dict(name, name_format)
             self.dataframes.append({"params": {"name": name, **params}, "data": df})

@@ -3,3 +3,4 @@
 dist/
 src/quyckplot.egg-info
 src/quyckplot/__pycache__
+tests/__pycache__
