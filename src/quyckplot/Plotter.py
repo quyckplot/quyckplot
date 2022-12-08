@@ -1,32 +1,6 @@
 from matplotlib import pyplot as plt
 import matplotlib as mpl
-from .utils import dict2formatted_string
-
-# this function takes a plt method (e.g. plt.plot) and returns a function that takes a dataframe and plots it with the given method
-def plotter_factory(method):
-    def plotter(cls, data, x, y, xlabel=None, ylabel=None, legend=None, new=True, size=(9, 7), **kwargs):
-        """
-        Plots the data of the DataSet object.
-        """
-        if xlabel is None:
-            xlabel = x
-        if ylabel is None:
-            ylabel = y
-        if new:
-            cls.new_plot(xlabel, ylabel, title="", size=size)
-        for df in data.dataframes:
-            if legend:
-                method(
-                    df["data"][x], 
-                    df["data"][y], 
-                    label=dict2formatted_string(df["params"], legend), 
-                    **kwargs
-                )
-            else:
-                method(df["data"][x], df["data"][y], **kwargs)
-        if legend:
-            plt.legend(loc="best")
-    return plotter
+from .utils import plotter_factory
 
 class Plotter:
     nth_plot = 0

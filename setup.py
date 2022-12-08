@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.62'
+VERSION = '0.0.63'
 DESCRIPTION = 'A package that helps the process of loading multiple files and plotting the data inside.'
 LONG_DESCRIPTION = 'A package that helps the process of loading multiple files and plotting the data inside.'
 
@@ -9,7 +9,7 @@ setup(
     name="quyckplot",
     version=VERSION,
     author="Takanori Akieda",
-    author_email="<takanori.codron@gmail.com>",
+    author_email="<takanori.codron@epfl.ch>",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,

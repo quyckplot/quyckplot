@@ -1,5 +1,6 @@
 import os
 import re
+from matplotlib import pyplot as plt
 
 class RegexPatterns:
     INT = '\d+'
@@ -47,3 +48,25 @@ def dict2formatted_string(dict, format):
     for name in names:
         format = format.replace(f"<{name}>", dict[name])
     return format
+
+# this function takes a plt method (e.g. plt.plot) and returns a function that takes a dataframe and plots it with the given method
+def plotter_factory(method):
+    def plotter(cls, data, x, y, xlabel=None, ylabel=None, legend=None, new=True, size=(9, 7), **kwargs):
+        """
+        Plots the data of the DataSet object.
+        """
+        if xlabel is None:
+            xlabel = x
+        if ylabel is None:
+            ylabel = y
+        if new:
+            cls.new_plot(xlabel, ylabel, title="", size=size)
+        data.map(lambda df: method(
+            df["data"][x],
+            df["data"][y],
+            label=dict2formatted_string(df["params"], legend) if legend else None,
+            **kwargs
+        ))
+        if legend:
+            plt.legend(loc="best")
+    return plotter
