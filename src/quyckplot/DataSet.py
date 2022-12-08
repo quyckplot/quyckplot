@@ -1,3 +1,20 @@
+"""
+This file contains the DataSet class.
+The purpose of this class is to store data from multiple files in a single object.
+The class' main attribute is the dataframes attribute, which is a list of dictionaries.
+Each dictionary contains the data from a single file as well as the parameters of that file.
+For example, if the file name is "T=10K-I=1.5A.csv", then the dictionary may be as follows:
+    {
+        "data": pd.DataFrame(...),
+        "params": {
+            "temp": "10",
+            "current": "1.5"
+        }
+    }
+The user can choose the "params" format.
+The class contains methods for plotting the data.
+"""
+
 import pandas as pd
 from .utils import getFileNamesFromRegex, formatted_string2dict
 from .Plotter import Plotter
@@ -28,9 +45,6 @@ class DataSet:
         self.dataframes = []
 
     def map(self, func):
-        """
-        Applies the given function to each dataframe in the list of dataframes.
-        """
         for df in self.dataframes:
             func(df)
 

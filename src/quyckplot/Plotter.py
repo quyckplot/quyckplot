@@ -1,3 +1,8 @@
+"""
+This file contains the Plotter class.
+The purpose of this class is to provide a simple interface for plotting data from a DataSet instance.
+"""
+
 from matplotlib import pyplot as plt
 import matplotlib as mpl
 from .utils import plotter_factory

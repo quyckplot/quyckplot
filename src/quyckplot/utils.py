@@ -9,15 +9,20 @@ class RegexPatterns:
     OPT_FLOAT = f'{OPT_INT}\.?\d*'
 
 def getFileNamesFromRegex(regex="*", dir=""):
+        """
+        Returns a list of file names in the given directory that match the given regex.
+        """
         pattern = re.compile(regex)
         files = os.listdir(dir)
         return [f'{file}' for file in files if pattern.match(file)]
 
 def formatted_string2dict(s, format):
     """
-    Converts a string of parameters into a dictionary.
+    Converts a string of parameters into a dictionary. Essentially, the inverse of dict2formatted_string.
     example:
-        - if s = "T=10K-I=1.5A.csv" and format = "T=<temp>K-I=<current>A.csv", the function returns {"temp": "10", "current": "1.5"}
+        s            = "T=10K-I=1.5A.csv",
+        format       = "T=<temp>K-I=<current>A.csv"
+        --> result   = {"temp": "10", "current": "1.5"}
     """
     # get the names of the parameters
     names = re.findall("<.*?>", format) # ["<temp>", "<current>"]
@@ -36,9 +41,11 @@ def formatted_string2dict(s, format):
 
 def dict2formatted_string(dict, format):
     """
-    Converts a dictionary of parameters into a string.
+    Converts a dictionary of parameters into a string. Essentially the opposite of formatted_string2dict.
     example:
-        - if dict = {"temp": "10", "current": "1.5"} and format = "T=<temp>K-I=<current>A.csv", the function returns "T=10K-I=1.5A.csv"
+        dict        = {"temp": "10", "current": "1.5"},
+        format      = "T=<temp>K-I=<current>A.csv", 
+        -->  result = "T=10K-I=1.5A.csv"
     """
     # get the names of the parameters
     names = re.findall("<.*?>", format) # ["<temp>", "<current>"]
@@ -52,15 +59,14 @@ def dict2formatted_string(dict, format):
 # this function takes a plt method (e.g. plt.plot) and returns a function that takes a dataframe and plots it with the given method
 def plotter_factory(method):
     def plotter(cls, data, x, y, xlabel=None, ylabel=None, legend=None, new=True, size=(9, 7), **kwargs):
-        """
-        Plots the data of the DataSet object.
-        """
         if xlabel is None:
-            xlabel = x
+            xlabel = x # if user wants to plot column "something", then the default x label is "something"
         if ylabel is None:
             ylabel = y
         if new:
             cls.new_plot(xlabel, ylabel, title="", size=size)
+        # for each data in the DataSet object, plot it using the given method
+        # include a label if the legend is not None
         data.map(lambda df: method(
             df["data"][x],
             df["data"][y],
