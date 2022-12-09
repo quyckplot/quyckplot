@@ -8,7 +8,7 @@ class RegexPatterns:
     FLOAT = f'{INT}\.?\d*'
     OPT_FLOAT = f'{OPT_INT}\.?\d*'
 
-def getFileNamesFromRegex(regex="*", dir=""):
+def file_names_from_regex(regex=".*", dir=""):
         """
         Returns a list of file names in the given directory that match the given regex.
         """
