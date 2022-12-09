@@ -5,12 +5,9 @@ The purpose of this class is to provide a simple interface for plotting data fro
 
 from matplotlib import pyplot as plt
 import matplotlib as mpl
-from .utils import plotter_factory
 
 class Plotter:
     nth_plot = 0
-    plot = classmethod(plotter_factory(plt.plot))
-    scatter = classmethod(plotter_factory(plt.scatter))
 
     @staticmethod
     def set_theme():
