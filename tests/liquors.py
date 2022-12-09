@@ -18,7 +18,7 @@ data = DataSet.from_files(
     names=["x", "y"]
 )
 
-Plotter.new_plot("x", "y", "Liquors", (10, 10))
+Plotter.new_plot("x", "y", "Liquors")
 data.map(
     sequence([
         some_function,

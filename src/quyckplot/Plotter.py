@@ -28,7 +28,7 @@ class Plotter:
         plt.show()
 
     @classmethod
-    def new_plot(cls, xlabel, ylabel, title, size):
+    def new_plot(cls, xlabel, ylabel, title, size=(9, 7)):
         cls.nth_plot += 1
         fig = plt.figure(cls.nth_plot, figsize=size)
         fig.suptitle(title)
