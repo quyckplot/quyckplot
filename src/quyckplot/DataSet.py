@@ -10,6 +10,10 @@ class DataSet:
     def clear(self):
         self.data = []
 
+    def map(self, func):
+        for file_data in self.data:
+            func(file_data)
+
     @classmethod
     def from_files(cls, file_names, name_format="", dir="", **args):
         """

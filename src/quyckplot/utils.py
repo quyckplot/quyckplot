@@ -15,3 +15,13 @@ def file_names_from_regex(regex=".*", dir=""):
         pattern = re.compile(regex)
         files = os.listdir(dir)
         return [f'{file}' for file in files if pattern.match(file)]
+
+def sequence(fs):
+    """
+    Returns a function that applies the given functions in sequence.
+    The functions are applied in the order they are given and directly act on the input.
+    """
+    def function(x):
+        for f in fs:
+            f(x)
+    return function

@@ -1,6 +1,8 @@
 """
 This file contains the Plotter class.
 The purpose of this class is to provide a simple interface for plotting data from a DataSet instance.
+The plotting methods should take a single FileData instance as argument.
+To use them with a DataSet instance, use the DataSet.map method.
 """
 
 from matplotlib import pyplot as plt
@@ -33,3 +35,17 @@ class Plotter:
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.grid(True)
+
+    @classmethod
+    def scatter(cls, x, y, legend=None, *args, **kwargs):
+        def _scatter(file_data):
+            plt.scatter(
+                file_data.data[x], 
+                file_data.data[y], 
+                label=legend.format(**file_data.context) if legend else None,
+                *args, 
+                **kwargs
+            )
+            if legend:
+                plt.legend(loc="best")
+        return _scatter
