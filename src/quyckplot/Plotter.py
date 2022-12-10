@@ -1,7 +1,6 @@
 """
 This file contains the Plotter class.
-The purpose of this class is to provide a simple interface for plotting data from a DataSet instance.
-The plotting methods should take a single FileData instance as argument.
+The plotting methods take a single FileData instance as argument.
 To use them with a DataSet instance, use the DataSet.map method.
 """
 
