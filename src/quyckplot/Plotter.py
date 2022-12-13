@@ -35,16 +35,35 @@ class Plotter:
         plt.ylabel(ylabel)
         plt.grid(True)
 
-    @classmethod
-    def scatter(cls, x, y, legend=None, *args, **kwargs):
-        def _scatter(file_data):
-            plt.scatter(
-                file_data.data[x], 
-                file_data.data[y], 
-                label=legend.format(**file_data.context) if legend else None,
-                *args, 
-                **kwargs
-            )
-            if legend:
-                plt.legend(loc="best")
-        return _scatter
+    def plot_factory(plt_method):
+        """
+        plt_method: a method from matplotlib.pyplot (e.g. plt.scatter)
+        Returns a function that takes x, y, legend, *args, **kwargs as arguments and returns a function that takes a FileData instance as argument and plots is.
+        This is best explained wih an example:
+
+           - To plot a single FileData:
+                scatter = plot_factory(plt.scatter)
+                Plotter.scatter(x="x column", y="y column")(file_data)
+
+           - To plot a DataSet:
+                scatter = plot_factory(plt.scatter)
+                dataset.map( 
+                    Plotter.scatter(x="x column", y="y column")
+                )
+        """
+        def plotter(x, y, legend=None, *args, **kwargs):
+            def _plot(file_data):
+                plt_method(
+                    file_data.data[x], 
+                    file_data.data[y], 
+                    label=legend.format(**file_data.context) if legend else None,
+                    *args, 
+                    **kwargs
+                )
+                if legend:
+                    plt.legend(loc="best")
+            return _plot
+        return plotter
+    
+    scatter = plot_factory(plt.scatter)
+    plot = plot_factory(plt.plot)

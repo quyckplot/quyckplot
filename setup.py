@@ -15,7 +15,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     packages=find_packages('src'),
     package_dir={'': 'src'},
-    install_requires=['numpy', 'scipy', 'matplotlib', 'pandas'],
+    install_requires=['numpy', 'scipy', 'matplotlib', 'pandas', 'parse'],
     keywords=['python', 'data analysis', 'scientific'],
     classifiers=[
         "Programming Language :: Python :: 3",
