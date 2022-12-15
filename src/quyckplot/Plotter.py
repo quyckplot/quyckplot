@@ -65,5 +65,30 @@ class Plotter:
             return _plot
         return plotter
     
-    scatter = plot_factory(plt.scatter)
-    plot = plot_factory(plt.plot)
+    @classmethod
+    def scatter(cls, x, y, legend=None, *args, **kwargs):
+        def _scatter(file_data):
+            plt.scatter(
+                file_data.data[x], 
+                file_data.data[y], 
+                label=legend.format(**file_data.context) if legend else None,
+                *args, 
+                **kwargs
+            )
+            if legend:
+                plt.legend(loc="best")
+        return _scatter
+
+    @classmethod
+    def plot(cls, x, y, legend=None, *args, **kwargs):
+        def _plot(file_data):
+            plt.plot(
+                file_data.data[x], 
+                file_data.data[y], 
+                label=legend.format(**file_data.context) if legend else None,
+                *args, 
+                **kwargs
+            )
+            if legend:
+                plt.legend(loc="best")
+        return _plot

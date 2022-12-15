@@ -22,3 +22,9 @@ class FileData:
         parse_result = parse.parse(name_format, file_name)
         context = {"file_path": path, **parse_result.named}
         return cls(data, context)
+
+    def update_context(self, update):
+        """
+        Updates the context of the FileData instance.
+        """
+        self.context.update(update)

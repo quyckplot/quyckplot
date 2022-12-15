@@ -26,5 +26,15 @@ data.map(
     ])
 )
 
+Plotter.end_session()
+
+"""
+In the future, it would be nice to be able to do something like this:
+
+with Plotter.new_plot("Raman shift", "Intensity", "Ethanol concentrations", legend=True) as plot:
+    data.map(
+        plot.plot(x="Raman shift", y="Intensity", legend="ethanol: {eth}%")
+    )
 
 Plotter.end_session()
+"""

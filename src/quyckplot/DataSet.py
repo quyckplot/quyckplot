@@ -1,11 +1,18 @@
 from typing import List
 
 from .FileData import FileData
-from .utils import file_names_from_regex
+from .utils import file_names_from_regex, sequence
 
 class DataSet:
     def __init__(self, data: List[FileData] = None):
         self.data = data if data is not None else []
+
+    # define slicing of DataSet
+    def __getitem__(self, subscript):
+        if isinstance(subscript, slice):
+            return DataSet(self.data[subscript.start:subscript.stop:subscript.step])
+        else:
+            return self.data[subscript]
 
     def clear(self):
         self.data = []
@@ -13,6 +20,9 @@ class DataSet:
     def map(self, func):
         for file_data in self.data:
             func(file_data)
+
+    def sequence(self, funcs):
+        self.map(sequence(funcs))
 
     @classmethod
     def from_files(cls, file_names, name_format="", dir="", **args):
