@@ -6,6 +6,8 @@ To use them with a DataSet instance, use the DataSet.map method.
 
 from matplotlib import pyplot as plt
 import matplotlib as mpl
+from scipy.interpolate import interp1d
+import numpy as np
 
 class Plotter:
     nth_plot = 0
@@ -34,36 +36,6 @@ class Plotter:
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.grid(True)
-
-    def plot_factory(plt_method):
-        """
-        plt_method: a method from matplotlib.pyplot (e.g. plt.scatter)
-        Returns a function that takes x, y, legend, *args, **kwargs as arguments and returns a function that takes a FileData instance as argument and plots is.
-        This is best explained wih an example:
-
-           - To plot a single FileData:
-                scatter = plot_factory(plt.scatter)
-                Plotter.scatter(x="x column", y="y column")(file_data)
-
-           - To plot a DataSet:
-                scatter = plot_factory(plt.scatter)
-                dataset.map( 
-                    Plotter.scatter(x="x column", y="y column")
-                )
-        """
-        def plotter(x, y, legend=None, *args, **kwargs):
-            def _plot(file_data):
-                plt_method(
-                    file_data.data[x], 
-                    file_data.data[y], 
-                    label=legend.format(**file_data.context) if legend else None,
-                    *args, 
-                    **kwargs
-                )
-                if legend:
-                    plt.legend(loc="best")
-            return _plot
-        return plotter
     
     @classmethod
     def scatter(cls, x, y, legend=None, *args, **kwargs):
@@ -80,11 +52,14 @@ class Plotter:
         return _scatter
 
     @classmethod
-    def plot(cls, x, y, legend=None, *args, **kwargs):
+    def plot(cls, x, y, legend=None, interpolate=False, *args, **kwargs):
+        # interpolate is either False or a number of points to interpolate to
         def _plot(file_data):
+            xs = file_data.data[x] if not interpolate else np.linspace(file_data.data[x].min(), file_data.data[x].max(), interpolate)
+            ys = file_data.data[y] if not interpolate else interp1d(file_data.data[x], file_data.data[y], kind="cubic")(xs)
             plt.plot(
-                file_data.data[x], 
-                file_data.data[y], 
+                xs, 
+                ys, 
                 label=legend.format(**file_data.context) if legend else None,
                 *args, 
                 **kwargs

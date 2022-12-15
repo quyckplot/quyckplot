@@ -25,8 +25,8 @@ data = data[0:3]
 data.sequence([
     fit_and_update_context,
     lambda d: Plotter.new_plot("x", "y", f"a={d.context['a']}, c={d.context['c']}"), # create a new plot
-    Plotter.scatter(x="x", y="y", marker=".", s=1), # scatter the raw data
-    Plotter.plot(x="x", y="fit", legend="$c={fit_width}$"), # plot the fit
+    Plotter.scatter(x="x", y="y", marker="+", s=40), # scatter the raw data
+    Plotter.plot(x="x", y="fit", legend="$c={fit_width}$", interpolate=100), # plot the fit
 ])
 
 Plotter.end_session()

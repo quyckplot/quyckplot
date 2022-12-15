@@ -11,7 +11,7 @@ def gaussian_f_factory(a, b, c, d):
         return a * np.exp(-((x - b) / c) ** 2) + d
     return f
 
-xs = np.linspace(-10, 10, 100)
+xs = np.linspace(-10, 10, 10)
 
 for a in np.linspace(0, 10, 5):
     for c in np.linspace(0, 10, 5):
